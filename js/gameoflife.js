@@ -92,9 +92,23 @@ const calculateNext = (state) => {
   return newState
 };
 
-const iterate = (state, iterations) => { };
+const iterate = (state, iterations) => {
+  //include initial state
+  var gameStates = [state]
 
-const main = (pattern, iterations) => { };
+  for (var i = 0; i < iterations; i++) {
+    state = calculateNext(state)
+    gameStates.push(state)
+  }
+  return gameStates
+};
+
+const main = (pattern, iterations) => {
+  var gameStates = iterate(startPatterns[pattern], iterations)
+  gameStates.forEach(state => {
+    console.log(printCells(state))
+  });
+};
 
 const startPatterns = {
   rpentomino: [
