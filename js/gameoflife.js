@@ -72,7 +72,25 @@ const willBeAlive = (cell, state) => {
     (contains.call(state, cell) && livingNeighborsCount == 2) ? true : false
 };
 
-const calculateNext = (state) => { };
+const calculateNext = (state) => {
+  var newState = []
+
+  //get corners
+  var { bottomLeft, topRight } = corners(state)
+
+  //extend the search space by one row or column in each direction
+  bottomLeft = [bottomLeft[0] - 1, bottomLeft[1] - 1]
+  topRight = [topRight[0] + 1, topRight[1] + 1]
+
+  for (var y = topRight[1]; y >= bottomLeft[1]; y--) {
+    for (let x = bottomLeft[0]; x <= topRight[0]; x++) {
+      if (willBeAlive([x, y], state))
+        newState.push([x, y])
+    }
+  }
+
+  return newState
+};
 
 const iterate = (state, iterations) => { };
 
